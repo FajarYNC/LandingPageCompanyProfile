@@ -1,0 +1,102 @@
+{
+  "name": "Arunika Smart Link Data - Company Profile",
+  "description": "Professional company profile website for Arunika Smart Link Data showcasing Face Recognition, IoT, and Blockchain services",
+  "version": "1.0.0",
+  "author": "Arunika Smart Link Data",
+  "homepage": "https://arunikasmartlink.com",
+  "keywords": [
+    "face recognition",
+    "iot",
+    "blockchain",
+    "smart technology",
+    "artificial intelligence",
+    "technology solutions",
+    "jakarta",
+    "indonesia",
+    "company profile"
+  ],
+  "technologies": {
+    "frontend": {
+      "html": "5",
+      "css": "3",
+      "javascript": "ES6+",
+      "bootstrap": "5.3.2"
+    },
+    "libraries": {
+      "leaflet": "1.9.4",
+      "aos": "2.3.1",
+      "fontawesome": "6.5.1"
+    },
+    "fonts": {
+      "primary": "Inter",
+      "secondary": "Poppins"
+    }
+  },
+  "features": [
+    "Responsive Design",
+    "Interactive Map",
+    "Portfolio Filtering",
+    "Contact Form Validation",
+    "Blog Search",
+    "Smooth Scrolling",
+    "AOS Animations",
+    "Mobile Navigation",
+    "SEO Optimized"
+  ],
+  "browser_support": {
+    "chrome": "70+",
+    "firefox": "65+",
+    "safari": "12+",
+    "edge": "79+"
+  },
+  "contact": {
+    "email": "info@arunikasmartlink.com",
+    "phone": "+62 21 1234 5678",
+    "whatsapp": "+62 812 3456 7890",
+    "address": "Jl. Teknologi No. 123, Jakarta Selatan, Indonesia"
+  },
+  "social_media": {
+    "facebook": "https://facebook.com/arunikasmartlink",
+    "twitter": "https://twitter.com/arunikasmartlink",
+    "instagram": "https://instagram.com/arunikasmartlink",
+    "linkedin": "https://linkedin.com/company/arunikasmartlink",
+    "youtube": "https://youtube.com/@arunikasmartlink"
+  },
+  "services": [
+    {
+      "name": "Face Recognition",
+      "description": "Advanced facial recognition technology for security and attendance systems",
+      "features": [
+        "99.9% Accuracy",
+        "Real-time Processing",
+        "Anti-spoofing",
+        "Cloud & On-premise"
+      ]
+    },
+    {
+      "name": "Internet of Things",
+      "description": "Comprehensive IoT solutions for smart buildings and automation",
+      "features": [
+        "Smart Monitoring",
+        "Automation System",
+        "Data Analytics",
+        "Scalable Infrastructure"
+      ]
+    },
+    {
+      "name": "Blockchain",
+      "description": "Secure blockchain solutions for digital payments and smart contracts",
+      "features": [
+        "Secure Transactions",
+        "Smart Contracts",
+        "Decentralized System",
+        "Cryptocurrency Integration"
+      ]
+    }
+  ],
+  "company_info": {
+    "vision": "Menjadi perusahaan teknologi terdepan yang menghadirkan solusi smart technology untuk transformasi digital Indonesia",
+    "mission": "Mengembangkan dan mengimplementasikan teknologi Face Recognition, IoT, dan Blockchain yang inovatif, terpercaya, dan berkelanjutan",
+    "values": ["Innovation", "Security", "Trust", "Quality"]
+  }
+}
