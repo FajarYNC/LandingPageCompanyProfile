@@ -368,6 +368,10 @@ h6 {
 /* ==========================================
    SERVICES SECTION
    ========================================== */
+#services .row.g-4 {
+  align-items: stretch;
+}
+
 .service-card {
   background: var(--white-color);
   border-radius: var(--border-radius);
@@ -376,6 +380,11 @@ h6 {
   box-shadow: var(--shadow-light);
   transition: var(--transition);
   border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 550px;
 }
 
 .service-card:hover {
@@ -394,16 +403,29 @@ h6 {
   margin: 0 auto 1.5rem;
   color: var(--white-color);
   font-size: 2rem;
+  flex-shrink: 0;
 }
 
 .service-card h4 {
   color: var(--dark-color);
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .service-card p {
   color: var(--gray-color);
   margin-bottom: 2rem;
+  line-height: 1.6;
+  min-height: 5rem;
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.95rem;
 }
 
 .service-features {
@@ -411,20 +433,231 @@ h6 {
   padding: 0;
   margin-bottom: 2rem;
   text-align: left;
+  flex-grow: 1;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .service-features li {
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   color: var(--gray-color);
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .service-features i {
   color: var(--primary-color);
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.service-card .btn {
+  margin-top: auto;
+  align-self: center;
+  min-width: 180px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 /* ==========================================
-   PORTFOLIO SECTION
+   Portfolio Animated Gallery
+   ========================================== */
+
+/* Portfolio Row Styling - Full Width */
+.portfolio-row {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  margin: 2rem 0;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.05) 0%,
+    rgba(118, 75, 162, 0.05) 100%
+  );
+  padding: 2rem 0;
+  /* Performance optimizations */
+  will-change: transform;
+}
+
+.portfolio-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(248, 250, 252, 1) 0%,
+    rgba(248, 250, 252, 0.8) 3%,
+    rgba(248, 250, 252, 0) 50%,
+    rgba(248, 250, 252, 0.8) 97%,
+    rgba(248, 250, 252, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.portfolio-gallery {
+  display: flex;
+  gap: 2rem;
+  width: fit-content;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Seamless looping - duplicate content width */
+  width: calc(100% * 2);
+}
+
+/* Right Moving Animation */
+.portfolio-row-right .portfolio-gallery {
+  animation: scrollRight 40s linear infinite;
+}
+
+/* Left Moving Animation */
+.portfolio-row-left .portfolio-gallery {
+  animation: scrollLeft 45s linear infinite;
+}
+
+/* Portfolio Slide Styling */
+.portfolio-slide {
+  min-width: 300px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--white-color);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.portfolio-slide:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25);
+  z-index: 10;
+}
+
+.portfolio-slide img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-slide:hover img {
+  transform: scale(1.1);
+}
+
+/* Portfolio Info Styling */
+.portfolio-info {
+  padding: 1rem;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 250, 252, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+
+.portfolio-info h5 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Badge Styling */
+.portfolio-info .badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: none;
+  align-self: flex-start;
+  background: var(--gradient-primary);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.portfolio-info .badge.iot {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+}
+
+.portfolio-info .badge.blockchain {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+}
+
+/* Animation Keyframes - True Seamless Loop */
+@keyframes scrollRight {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Pause animation on hover for better UX */
+.portfolio-row:hover .portfolio-gallery {
+  animation-play-state: paused;
+}
+
+/* Portfolio Section Override */
+#portfolio {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 50px;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-gallery {
+    animation: none;
+  }
+
+  .portfolio-slide {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   LEGACY PORTFOLIO SECTION (Keep for Modal)
    ========================================== */
 .portfolio-filter {
   display: flex;
@@ -1136,6 +1369,48 @@ h6 {
     align-items: flex-start;
     gap: 0.5rem;
   }
+
+  /* Portfolio Gallery Responsive */
+  .portfolio-row {
+    padding: 2rem 0;
+    margin: 1rem 0;
+  }
+
+  .portfolio-slide {
+    min-width: 250px;
+    height: 200px;
+  }
+
+  .portfolio-slide img {
+    height: 130px;
+  }
+
+  .portfolio-info {
+    height: 70px;
+    padding: 0.8rem;
+  }
+
+  .portfolio-info h5 {
+    font-size: 0.8rem;
+  }
+
+  .portfolio-info .badge {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .portfolio-gallery {
+    gap: 1.5rem;
+  }
+
+  /* Faster animation for mobile */
+  .portfolio-row-right .portfolio-gallery {
+    animation: scrollRight 30s linear infinite;
+  }
+
+  .portfolio-row-left .portfolio-gallery {
+    animation: scrollLeft 35s linear infinite;
+  }
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
@@ -1194,6 +1469,44 @@ h6 {
   .social-share .btn {
     margin-right: 0;
     width: 100%;
+  }
+
+  /* Portfolio Gallery Extra Small */
+  .portfolio-slide {
+    min-width: 220px;
+    height: 180px;
+  }
+
+  .portfolio-slide img {
+    height: 120px;
+  }
+
+  .portfolio-info {
+    height: 60px;
+    padding: 0.6rem;
+  }
+
+  .portfolio-info h5 {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .portfolio-gallery {
+    gap: 1rem;
+  }
+
+  .portfolio-row {
+    padding: 1.5rem 0;
+  }
+
+  /* Even faster animation for very small screens */
+  .portfolio-row-right .portfolio-gallery {
+    animation: scrollRight 25s linear infinite;
+  }
+
+  .portfolio-row-left .portfolio-gallery {
+    animation: scrollLeft 30s linear infinite;
   }
 }
 
