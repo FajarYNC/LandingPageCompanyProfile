@@ -116,7 +116,7 @@ const portfolioProjects = {
       "Mobile app support",
     ],
     image:
-      "https://via.placeholder.com/600x400/667eea/ffffff?text=Face+Recognition+System",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   project2: {
     title: "Smart Building Management",
@@ -134,7 +134,7 @@ const portfolioProjects = {
       "Mobile dashboard",
     ],
     image:
-      "https://via.placeholder.com/600x400/764ba2/ffffff?text=IoT+Monitoring",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   project3: {
     title: "Digital Payment Platform",
@@ -152,7 +152,7 @@ const portfolioProjects = {
       "Transaction analytics",
     ],
     image:
-      "https://via.placeholder.com/600x400/667eea/ffffff?text=Blockchain+Platform",
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   project4: {
     title: "Access Control System",
@@ -170,7 +170,7 @@ const portfolioProjects = {
       "Audit trail",
     ],
     image:
-      "https://via.placeholder.com/600x400/764ba2/ffffff?text=Security+System",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   project5: {
     title: "Smart Agriculture System",
@@ -188,7 +188,7 @@ const portfolioProjects = {
       "Yield prediction",
     ],
     image:
-      "https://via.placeholder.com/600x400/667eea/ffffff?text=Smart+Agriculture",
+      "https://images.unsplash.com/photo-1574169208507-84376144848b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   project6: {
     title: "Supply Chain Tracking",
@@ -212,12 +212,26 @@ const portfolioProjects = {
       "Real-time tracking",
     ],
     image:
-      "https://via.placeholder.com/600x400/764ba2/ffffff?text=Supply+Chain",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
 };
 
 // DOM Content Loaded
 document.addEventListener("DOMContentLoaded", function () {
+  // Check if required libraries are loaded
+  if (typeof AOS === "undefined") {
+    console.warn("AOS library not loaded");
+  }
+  if (typeof bootstrap === "undefined") {
+    console.warn("Bootstrap library not loaded");
+  }
+  if (typeof L === "undefined") {
+    console.warn("Leaflet library not loaded");
+  }
+
+  // Fix broken images
+  fixBrokenImages();
+
   initializeAOS();
   initializeNavbar();
   initializeSmoothScroll();
@@ -234,14 +248,39 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(initializeMap, 1000);
 });
 
+// Fix broken images
+function fixBrokenImages() {
+  const images = document.querySelectorAll("img");
+  const fallbackImage =
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+
+  images.forEach((img) => {
+    img.addEventListener("error", function () {
+      console.warn(`Failed to load image: ${this.src}`);
+      this.src = fallbackImage;
+      this.alt = "Fallback image";
+    });
+
+    // Handle images that are already broken
+    if (!img.complete || img.naturalHeight === 0) {
+      img.src = fallbackImage;
+      img.alt = "Fallback image";
+    }
+  });
+}
+
 // Initialize AOS (Animate On Scroll)
 function initializeAOS() {
-  AOS.init({
-    duration: 1000,
-    easing: "ease-in-out",
-    once: true,
-    offset: 100,
-  });
+  if (typeof AOS !== "undefined") {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+      offset: 100,
+    });
+  } else {
+    console.warn("AOS library not available. Animations will be skipped.");
+  }
 }
 
 // Navbar Functionality
@@ -487,7 +526,13 @@ function preloadBlogImages() {
     const img = new Image();
     img.src = article.image;
     img.onerror = function () {
-      console.warn(`Failed to load image for article: ${article.title}`);
+      console.warn(
+        `Failed to load image for article: ${article.title}. Using fallback image.`
+      );
+      // Set fallback image
+      const fallbackUrl =
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+      article.image = fallbackUrl;
     };
   });
 }
@@ -521,17 +566,17 @@ function createBlogCard(article, index) {
 
   // Fallback images berdasarkan kategori
   const fallbackImages = {
-    ai: "https://via.placeholder.com/800x450/667eea/ffffff?text=AI+Technology",
+    ai: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     blockchain:
-      "https://via.placeholder.com/800x450/764ba2/ffffff?text=Blockchain+Security",
-    iot: "https://via.placeholder.com/800x450/667eea/ffffff?text=IoT+Smart+City",
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    iot: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     teknologi:
-      "https://via.placeholder.com/800x450/f093fb/ffffff?text=Technology+Trends",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
   };
 
   const fallbackUrl =
     fallbackImages[article.category.toLowerCase()] ||
-    "https://via.placeholder.com/800x450/667eea/ffffff?text=Tech+Article";
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
 
   col.innerHTML = `
     <div class="blog-card h-100">
@@ -607,17 +652,17 @@ function openBlogModal(articleId) {
 
   // Fallback images berdasarkan kategori untuk modal
   const fallbackImages = {
-    ai: "https://via.placeholder.com/800x400/667eea/ffffff?text=AI+Technology+Article",
+    ai: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     blockchain:
-      "https://via.placeholder.com/800x400/764ba2/ffffff?text=Blockchain+Security+Article",
-    iot: "https://via.placeholder.com/800x400/667eea/ffffff?text=IoT+Smart+City+Article",
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    iot: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     teknologi:
-      "https://via.placeholder.com/800x400/f093fb/ffffff?text=Technology+Trends+Article",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
   };
 
   const fallbackUrl =
     fallbackImages[article.category.toLowerCase()] ||
-    "https://via.placeholder.com/800x400/667eea/ffffff?text=Technology+Article";
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
 
   modalBody.innerHTML = `
     <div class="blog-modal-content">
@@ -1054,6 +1099,14 @@ function initializeMap() {
   const mapElement = document.getElementById("map");
   if (!mapElement) return;
 
+  // Check if Leaflet is available
+  if (typeof L === "undefined") {
+    console.warn("Leaflet library not available. Map will not be initialized.");
+    mapElement.innerHTML =
+      '<div class="d-flex align-items-center justify-content-center h-100 bg-light rounded"><p class="text-muted"><i class="fas fa-map-marked-alt me-2"></i>Map tidak dapat dimuat</p></div>';
+    return;
+  }
+
   // Jakarta coordinates (example)
   const lat = -6.2088;
   const lng = 106.8456;
@@ -1089,7 +1142,7 @@ function initializeMap() {
   } catch (error) {
     console.error("Error initializing map:", error);
     mapElement.innerHTML =
-      '<div class="d-flex align-items-center justify-content-center h-100 bg-light rounded"><p class="text-muted">Map tidak dapat dimuat</p></div>';
+      '<div class="d-flex align-items-center justify-content-center h-100 bg-light rounded"><p class="text-muted"><i class="fas fa-exclamation-triangle me-2"></i>Map tidak dapat dimuat</p></div>';
   }
 }
 
@@ -1222,23 +1275,84 @@ window.addEventListener("load", function () {
   // Initialize lazy loading
   initializeLazyLoading();
 
+  // Check for external resources loading issues
+  checkExternalResources();
+
   // Preload critical images
   const criticalImages = [
-    "https://via.placeholder.com/400x300/667eea/ffffff?text=Face+Recognition+System",
-    "https://via.placeholder.com/400x300/764ba2/ffffff?text=IoT+Monitoring",
+    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
   ];
 
   criticalImages.forEach((src) => {
     const img = new Image();
     img.src = src;
+    img.onerror = function () {
+      console.warn(`Failed to load critical image: ${src}`);
+    };
   });
 });
+
+// Check external resources
+function checkExternalResources() {
+  // Check if external fonts loaded
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready
+      .then(() => {
+        console.log("All fonts loaded successfully");
+      })
+      .catch((error) => {
+        console.warn("Some fonts failed to load:", error);
+      });
+  }
+
+  // Check if critical CSS loaded
+  const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+  stylesheets.forEach((sheet) => {
+    if (sheet.sheet === null) {
+      console.warn("Stylesheet failed to load:", sheet.href);
+    }
+  });
+
+  // Check if critical JS loaded
+  if (typeof bootstrap === "undefined") {
+    console.warn(
+      "Bootstrap JavaScript not loaded - some functionality may be limited"
+    );
+  }
+  if (typeof AOS === "undefined") {
+    console.warn("AOS library not loaded - animations may not work");
+  }
+  if (typeof L === "undefined") {
+    console.warn("Leaflet library not loaded - map will not work");
+  }
+}
 
 // Error Handling
 window.addEventListener("error", function (e) {
   console.error("JavaScript Error:", e.error);
-  showNotification("Terjadi kesalahan. Silakan refresh halaman.", "warning");
+  if (e.target && e.target.tagName === "IMG") {
+    console.warn("Image failed to load:", e.target.src);
+    e.target.src =
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+  }
 });
+
+// Handle resource loading errors
+window.addEventListener(
+  "error",
+  function (e) {
+    if (e.target !== window) {
+      console.warn("Resource failed to load:", e.target);
+      if (e.target.tagName === "LINK" && e.target.rel === "stylesheet") {
+        console.warn("CSS file failed to load:", e.target.href);
+      } else if (e.target.tagName === "SCRIPT") {
+        console.warn("JavaScript file failed to load:", e.target.src);
+      }
+    }
+  },
+  true
+);
 
 // Resize Handler
 window.addEventListener("resize", function () {
