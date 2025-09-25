@@ -332,6 +332,23 @@ function initializeNavbar() {
       }
     });
   });
+
+  // Hamburger menu animation
+  const navbarToggler = document.querySelector(".navbar-toggler");
+  const navbarCollapse = document.querySelector(".navbar-collapse");
+
+  if (navbarToggler && navbarCollapse) {
+    navbarCollapse.addEventListener("show.bs.collapse", function () {
+      navbarToggler.classList.remove("collapsed");
+    });
+
+    navbarCollapse.addEventListener("hide.bs.collapse", function () {
+      navbarToggler.classList.add("collapsed");
+    });
+
+    // Initialize collapsed state
+    navbarToggler.classList.add("collapsed");
+  }
 }
 
 // Smooth Scroll
@@ -1240,27 +1257,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Floating Action Buttons
 function createFloatingButtons() {
+  // Create floating buttons container
   const floatingContainer = document.createElement("div");
   floatingContainer.className = "floating-buttons";
-  floatingContainer.style.cssText = `
-        position: fixed;
-        bottom: 100px;
-        right: 30px;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    `;
 
+  // Create WhatsApp button
   const whatsappButton = document.createElement("a");
   whatsappButton.href = "https://wa.me/6281234567890";
   whatsappButton.target = "_blank";
-  whatsappButton.className = "btn btn-success rounded-circle";
-  whatsappButton.style.cssText =
-    "width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;";
+  whatsappButton.className = "btn-whatsapp";
   whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
+  whatsappButton.title = "Hubungi via WhatsApp";
 
+  // Move existing back-to-top button to the container
+  const backToTopButton = document.getElementById("backToTop");
+
+  // Add buttons to container
   floatingContainer.appendChild(whatsappButton);
+  if (backToTopButton) {
+    backToTopButton.parentNode.removeChild(backToTopButton);
+    floatingContainer.appendChild(backToTopButton);
+  }
+
   document.body.appendChild(floatingContainer);
 }
 
