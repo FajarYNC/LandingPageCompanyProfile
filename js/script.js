@@ -244,8 +244,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeCounters();
   initializeParallax();
 
-  // Initialize map after a delay to ensure proper loading
-  setTimeout(initializeMap, 1000);
+  // Initialize map immediately
+  initializeMap();
 });
 
 // Fix broken images
@@ -989,12 +989,12 @@ function initializeTypingEffect() {
     if (i < text.length) {
       heroTitle.textContent += text.charAt(i);
       i++;
-      setTimeout(typeWriter, 100);
+      setTimeout(typeWriter, 75);
     }
   }
 
-  // Start typing effect after page load
-  setTimeout(typeWriter, 1000);
+  // Start typing effect immediately when page loads
+  typeWriter();
 }
 
 // Counter Animation
